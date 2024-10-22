@@ -1,29 +1,68 @@
 <!DOCTYPE html>
-
 <html>
     <head>
         <meta charset="utf-8">
-    
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <meta name="color-scheme" content="light dark">
         <link rel="stylesheet" href="css/index.css">
         <title>Task List</title>
-        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <h1>Task List</h1>
+        <div class="task-container">
+            <header>
+                <button id="addTaskButton">+</button>
+                <h1>Tasklist</h1>
+            </header>
 
-        <ul>
-            <li>Exemple tasca 1</li>
-        </ul>
+            <ul id="taskList">
+                <li>
+                    <span>FER LA COMPRA</span>
+                    <button class="editBtn">edit</button>
+                    <button class="deleteBtn">X</button>
+                </li>
+                <li>
+                    <span>ACABAR EXERCICI TASKLIST</span>
+                    <button class="editBtn">edit</button>
+                    <button class="deleteBtn">X</button>
+                </li>
+                <li>
+                    <span>TRUCAR AL METGE</span>
+                    <button class="editBtn">edit</button>
+                    <button class="deleteBtn">X</button>
+                </li>
+            </ul>
+        </div>
 
-    <script type="text/javascript">
-        var tasca = prompt("Tasca?");
-        var jquery_elem = $("<li>"+tasca+"</li>");
-        $("ul").append(jquery_elem);
-    </script>
+        <footer>
+            <button id="homeButton">HOME</button>
+        </footer>
 
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // Afegir una nova tasca
+                $("#addTaskButton").click(function() {
+                    var newTask = prompt("Escriu la nova tasca:");
+                    if (newTask) {
+                        var newTaskElem = $("<li><span>" + newTask + "</span><button class='editBtn'>edit</button><button class='deleteBtn'>X</button></li>");
+                        $("#taskList").append(newTaskElem);
+                    }
+                });
+
+                // Editar una tasca
+                $(document).on("click", ".editBtn", function() {
+                    var currentTask = $(this).siblings("span").text();
+                    var editedTask = prompt("Edita la tasca:", currentTask);
+                    if (editedTask) {
+                        $(this).siblings("span").text(editedTask);
+                    }
+                });
+
+                // Eliminar una tasca
+                $(document).on("click", ".deleteBtn", function() {
+                    $(this).parent().remove();
+                });
+            });
+        </script>
     </body>
 </html>
